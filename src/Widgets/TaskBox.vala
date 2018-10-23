@@ -715,20 +715,5 @@ namespace Timetable {
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             );
         }
-
-        public void notificator (Gtk.Application app) {
-            var time = new GLib.DateTime.now_local ();
-            string time_now = time.format("%H").to_string () + ":" + time.get_minute ().to_string ();
-            if (this.time_from_text == time_now) {
-                if (this.task_notify == true) {
-                    string title = _("Task: %s").printf (this.task_name);
-                    string body = "This task started now!";
-                    var notification = new Notification (title);
-                    notification.set_body (body);
-                    notification.set_icon (new ThemedIcon ("com.github.lainsce.timetable"));
-                    app.send_notification ("task-notify", notification);
-                }
-            }
-        }
     }
 }
