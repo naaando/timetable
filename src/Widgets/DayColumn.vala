@@ -9,6 +9,7 @@ namespace Timetable {
         public DayColumn (int day, MainWindow win) {
             this.win = win;
             this.set_size_request (180,-1);
+            this.day = day;
             is_modified = false;
             column = new Gtk.ListBox ();
             column.hexpand = true;
@@ -103,7 +104,7 @@ namespace Timetable {
         }
 
         public void add_task (string name, string color, string time_from_text, string time_to_text, bool task_allday, bool task_notify) {
-            var taskbox = new TaskBox (this.win, name, color, time_from_text, time_to_text, task_allday, task_notify);
+            var taskbox = new TaskBox (this.win, day, name, color, time_from_text, time_to_text, task_allday, task_notify);
             taskbox.update_theme ();
             column.insert (taskbox, -1);
             win.tm.save_notes ();

@@ -11,8 +11,9 @@ namespace Timetable {
         public string time_from_text;
         public bool task_allday;
         public bool task_notify;
+        TaskNotifier task_notifier;
 
-        public TaskBox (MainWindow win, string task_name, string color, string time_from_text, string time_to_text, bool task_allday, bool task_notify) {
+        public TaskBox (MainWindow win, int day, string task_name, string color, string time_from_text, string time_to_text, bool task_allday, bool task_notify) {
             var settings = AppSettings.get_default ();
             this.win = win;
             this.uid = uid_counter++;
@@ -437,6 +438,8 @@ namespace Timetable {
             this.add (task_grid);
             this.hexpand = false;
             this.show_all ();
+
+            task_notifier = new TaskNotifier (this, day);
         }
 
         private void change_theme () {
