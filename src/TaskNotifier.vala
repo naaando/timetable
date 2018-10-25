@@ -3,6 +3,7 @@ public class Timetable.TaskNotifier : Object {
     weak TaskBox task;
 
     public TaskNotifier (TaskBox task, int day) {
+        this.task = task;
         var now = new DateTime.now_local ();
 
         //  return the difference in ms from time to begin task
@@ -26,9 +27,7 @@ public class Timetable.TaskNotifier : Object {
     }
 
     bool send_notification () {
-        //  FIXME: Crash when acessing task_name
-        //  string title = @"Task: $(task.task_name)";
-        string title = @"Task: ...";
+        string title = @"Task: $(task.task_name)";
         string body = _("This task started now!");
         var notification = new Notification (title);
         notification.set_body (body);
