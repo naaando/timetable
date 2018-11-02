@@ -1,17 +1,23 @@
 public class Timetable.TaskNotifier : Object {
     //  Use weak to avoid circular reference
     weak TaskBox task;
+    Source source = new TimeoutSource (0);
 
     public TaskNotifier (TaskBox task, int day) {
         this.task = task;
-        var now = new DateTime.now_local ();
 
+        source.attach (MainContext.get_thread_default ());
+        source.set_callback (send_notification);
+        schedule ();
+
+        task.notify["time_from_text"].connect (schedule);
+    }
+
+    void schedule () {
+        var now = new DateTime.now_local ();
         //  return the difference in ms from time to begin task
-        var delta_time = time_and_day_to_datetime (now, task.time_from_text, day).difference (now);
-        //  FIXME: uint can't handle this time interval
-        if (delta_time > 0) {
-            Timeout.add ((uint) delta_time, send_notification);
-        }
+        var delta_time = time_and_day_to_datetime (task.time_from_text, task.day).difference (now);
+        source.set_ready_time (get_monotonic_time () + delta_time);
     }
 
     //  TODO: Save task datetime to avoid this hack
