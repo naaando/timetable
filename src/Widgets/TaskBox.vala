@@ -8,7 +8,7 @@ namespace Timetable {
         public string color;
         public string tcolor;
         public string time_to_text;
-        public string time_from_text;
+        public string time_from_text { get; set; }
         public bool task_allday;
         public bool task_notify;
         TaskNotifier task_notifier;
