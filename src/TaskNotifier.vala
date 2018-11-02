@@ -21,13 +21,15 @@ public class Timetable.TaskNotifier : Object {
     }
 
     //  TODO: Save task datetime to avoid this hack
-    DateTime time_and_day_to_datetime (DateTime now, string time, int day) {
+    DateTime time_and_day_to_datetime (string time, int day) {
+        var now = new DateTime.now_local ();
         var hour = int.parse (time[0:2]);
         var minutes = int.parse (time[3:5]);
+
         var dt = new DateTime.local (now.get_year (), now.get_month (), now.get_day_of_month (), hour, minutes, 0)
-        .add_days (day)
-        //  If day is lesser than day of the week means it's on the next week
-        .add_days ((day > now.get_day_of_week ()) ? 0 : 7);
+        .add_days (day - now.get_day_of_week ())
+        //  Add one week if day is before the current day
+        .add_days ((day >= now.get_day_of_week ()) ? 0 : 7);
 
         return dt;
     }
