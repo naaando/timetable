@@ -52,6 +52,8 @@ executable(
     'src/Widgets/DayColumn.vala',
     'src/Widgets/Preferences.vala',
     'src/Widgets/TaskBox.vala',
+    'src/Widgets/TaskEventBox.vala',
+    'src/Widgets/TaskPreferences.vala',
     'src/Constants/AppSettings.vala',
     asresources,
     c_args: c_args,
