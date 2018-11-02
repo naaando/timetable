@@ -4,6 +4,7 @@ namespace Timetable {
         public string task_name;
         public Gtk.Label task_label;
         public int uid;
+        public int day;
         public static int uid_counter;
         public string color;
         public string tcolor;
@@ -17,6 +18,7 @@ namespace Timetable {
             var settings = AppSettings.get_default ();
             this.win = win;
             this.uid = uid_counter++;
+            this.day = day;
             this.task_name = task_name;
             this.color = color;
             this.tcolor = color;
